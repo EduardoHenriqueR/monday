@@ -1,0 +1,5 @@
+### Requisição para a raiz
+GET http://localhost:5130/
+
+### Requisição para a URL /b
+GET http://localhost:5130/b
