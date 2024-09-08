@@ -3,3 +3,16 @@ GET http://localhost:5130/
 
 ### Requisição para a URL /b
 GET http://localhost:5130/b
+
+### Receber info pela URL
+GET http://localhost:5130/repositorio/dideconto/2024-desenvolvimento-software-visual-segunda
+
+### Receber info pelo corpo da requisição
+POST http://localhost:5130/usuario
+Content-Type: application/json
+
+{
+    "nome" : "Marlon",
+    "idade" : 26
+}
+
