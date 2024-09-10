@@ -2,10 +2,12 @@
 GET http://localhost:5130/
 
 ### Requisição para a URL /b
-GET http://localhost:5130/b
+GET http://localhost:5130/api/product/list
 
 ### Receber info pela URL
-GET http://localhost:5130/repositorio/dideconto/2024-desenvolvimento-software-visual-segunda
+GET http://localhost:5130/repositorio/EduardoHenriqueR/monday
+###
+POST http://localhost:5130/api/product/create/feijao
 
 ### Receber info pelo corpo da requisição
 POST http://localhost:5130/usuario
@@ -16,3 +18,15 @@ Content-Type: application/json
     "idade" : 26
 }
 
+###
+POST http://localhost:5130/product
+Content-Type: application/json
+
+{
+    "id" : 1,
+    "name" : "ChineseRice",
+    "quantity" : 5,
+    "price" : 1.99,
+    "description" : "Chinese style rice."
+
+}
