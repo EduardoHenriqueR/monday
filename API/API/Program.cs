@@ -1,4 +1,5 @@
 using API.Models;
+using Microsoft.AspNetCore.Mvc;
 //Minimal APIs em c#
 //Testar a API
 // - Rest Client - Extensão Vs
@@ -55,41 +56,60 @@ app.MapGet("/", () => "API Products");
 
 
 
-//Lição
-app.MapGet("/repositorio/{usuario}/{repositorio}", (string usuario, string repositorio) =>
-{
-    return $"User: {usuario}, Repositório: {repositorio}";
-});
-
-//POST /api/product/create/parametro_nome
-app.MapPost("/api/product/create/{name}", (string name) => 
-{
-    Product product = new Product();
-    product.Name = name;
-    products.Add(product);
-    return products;
-});
-
-//Lição 
-app.MapPost("/usuario", (Usuario usuario) => 
-{
-    return Results.Ok($"User: {usuario.Nome}, {usuario.Idade} years old.");
-});
-
-
-app.MapPost("/product", (Product product) =>
-{ 
-    return Results.Ok($"Product: {product.Id}, {product.Name}, {product.Quantity}, {product.Price}, {product.Description}");
-});
-
-
 //GET: /api/prodcut/list
 app.MapGet("/api/product/list", () => 
 {
-    return Results.Ok(products);
+    if(products.Count != 0)
+    {
+       return Results.Ok(products); 
+    }
+    return Results.NotFound();
 });
 
+//POST /api/product/create
+app.MapPost("/api/product/create", ([FromBody]Product product) => 
+{
+    products.Add(product);
+    return Results.Created("",product);
+});
 
+app.MapDelete("/api/product/delete", ([FromBody] Product prodcutD) =>
+{
+    var product = products.FirstOrDefault(i => i.Id == prodcutD.Id);
+    
+     if(product == null)
+        {
+         return Results.NotFound("Produto não encontrado.");
+        }
+       
+        products.Remove(product);
+        return Results.Ok("Produto " +product.Name + " deletado com sucesso.");
+}
+);
 
+app.MapPut("/api/product/update", ([FromBody] Product productU) =>
+{
+    var product = products.FirstOrDefault(i => i.Id == productU.Id);
+     if(product == null)
+     {
+        return Results.NotFound("Produto não encontrado.");
+     }
+     product.Name = productU.Name;
+     product.Description = productU.Description;
+     product.Price = productU.Price;
+     product.Quantity = productU.Quantity;
+     return Results.Ok(product);
+
+});
+
+app.MapGet("/api/product/search", ([FromBody] Product productS) =>
+{
+    var product = products.FirstOrDefault(i => i.Name == productS.Name);
+    if(product == null)
+    {
+        return Results.NotFound("Produto não encontrado.");
+    }
+    return Results.Ok("Porduto "+ productS.Name+ "encontrado com sucesso.");
+});
 
 app.Run();

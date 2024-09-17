@@ -6,27 +6,41 @@ GET http://localhost:5130/api/product/list
 
 ### Receber info pela URL
 GET http://localhost:5130/repositorio/EduardoHenriqueR/monday
-###
-POST http://localhost:5130/api/product/create/feijao
-
-### Receber info pelo corpo da requisição
-POST http://localhost:5130/usuario
+### 
+POST http://localhost:5130/api/product/create
 Content-Type: application/json
 
 {
-    "nome" : "Marlon",
-    "idade" : 26
+    "name" : "Laptop",
+    "description" : "A high-performance Laptop",
+    "quantity" : 1,
+    "price" : 999.99
 }
 
 ###
-POST http://localhost:5130/product
+DELETE http://localhost:5130/api/product/delete
 Content-Type: application/json
 
 {
-    "id" : 1,
-    "name" : "ChineseRice",
-    "quantity" : 5,
-    "price" : 1.99,
-    "description" : "Chinese style rice."
+    "id" : "66d0fb61-12d8-41f0-8acc-e00bb3c11d2a"
+}
 
+###
+PUT http://localhost:5130/api/product/update
+Content-Type: application/json
+
+{
+    "id" : "66d0fb61-12d8-41f0-8acc-e00bb3c11d2a",
+    "name" : "Mouse",
+    "description" : "A high-performance Mouse",
+    "quantity" : 1,
+    "price" : 99.99
+}
+
+###
+GET http://localhost:5130/api/product/search
+Content-Type: application/json
+
+{
+    "name" : "Laptop"
 }
